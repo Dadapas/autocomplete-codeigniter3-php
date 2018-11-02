@@ -1,0 +1,29 @@
+{
+  "author": {
+    "name": "Pascal TOVOHERY",
+    "email": "tovoherypascal@gmail.com",
+    "url": "pascaltovohery.com"
+  },
+  "dependencies": {},
+  "description": "The awesome snippets for Codeigniter 3 php Framework.",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">=1.4.0 <2.0.0"
+  },
+  "homepage": "https://github.com/tovohery/autocomplete-codeigniter3-php#readme",
+  "keywords": [
+    "atom",
+    "snippets",
+    "php",
+    "codeigniter"
+  ],
+  "license": "MIT",
+  "name": "autocomplete-codeigniter3-php",
+  "optionalDependencies": {},
+  "readmeFilename": "readme.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tovohery/autocomplete-codeigniter3-php"
+  },
+  "version": "0.1.4"
+}
