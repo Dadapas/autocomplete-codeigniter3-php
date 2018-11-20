@@ -1,27 +1,42 @@
 '.source.php':
   'Codeigniter begin tag':
-    'prefix': 'def'
+    'prefix': 'ci_def'
     'body': 'define("${1:name}", "${2:value}");'
   'Output ci':
-    'prefix': 'output'
+    'prefix': 'ci_output'
     body: '$this->output$1;'
   'Load view':
     'prefix': 'ci_load_view'
-    'body': '$this->load->view("$1");$2'
+    'body': '''
+      $dataView = [];
+      $this->load->view(\'$1\', $dataView);$2
+    '''
+  'Post input CI':
+    prefix: 'ci_post'
+    body: '$this->input->post(\'$1\');$2'
+  'Input method CI':
+    prefix: 'ci_method'
+    body: '$this->input->method(${1:false})$2'
   'Load model':
     'prefix': 'ci_load_model'
     'body': '$this->load->model("$1");$2'
   'Load CI Library':
     'prefix': 'ci_lib'
     'body': '$this->load->library("$1", []);$2'
+  'CI begin script':
+    'prefix': 'defined'
+    'body': "defined('BASEPATH') OR exit('No direct script access allowed');$1"
+  'Load route Codeigniter':
+    'prefix': 'route'
+    'body': '$route[\'$1\']        = \'$2\';$3'
   'Load Config':
     'prefix': 'ci_load_conf'
     'body': '$this->config->load("$1");$2'
   'Get conf file':
-    'prefix': 'conf_i'
+    'prefix': 'ci_conf_i'
     'body': '$this->config->item("$1");$2'
   'Set conf file':
-    'prefix': 'conf_set_i
+    'prefix': 'ci_setconf'
     'body': '$this->config->set_item("${1:key}", "${2:value}");$3'
   'Codeigniter controller':
     'prefix': 'ci_controller'
@@ -30,7 +45,7 @@
       /**
        * Controller description
       **/
-      class ${1:Controller} extend CI_Controller
+      class ${1:Controller} extends CI_Controller
       {
         public function __construct()
         {
@@ -53,7 +68,7 @@
       class ${1:Library}
       {
         private $CI;
-        
+
         public function __construct()
         {
           $this->CI = &get_instance();
@@ -62,19 +77,22 @@
 
         public function renderView()
         {
-          $this->CI->load->view('views/myview.php');
+          $dataView = [
+            'title'     => 'Title'
+          ];
+          $this->CI->load->view('views/myview.php', $dataView);
         }
       }
     """
-    
+
   'Codeigniter model':
-    'prefix': 'model'
+    'prefix': 'ci_model'
     'body': """
 
       /**
        * $1 description
       **/
-      class ${1:Controller} extend CI_Model
+      class ${1:MY_Model} extends CI_Model
       {
         public function __construct()
         {
@@ -86,19 +104,19 @@
         {
           return $this->db->get($this->table);
         }
-        
+
         public function set($array = [])
         {
           $this->db->set($array);
           return $this->db->insert($this->table);
         }
-        
+
         public function update($array = [], $where = '')
         {
           $this->db->set($array);
           $this->db->where($where);
           return $this->db->update($this->table);
         }
-        
+
       }
     """
